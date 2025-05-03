@@ -8,6 +8,7 @@ const Listing = require('./models/listing.js');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError = require('./utils/ExpressError.js');
+const {listingSchema} = require('./schema.js')
 
 app.set('view engine', 'ejs');
 app.set('views', Path.join(__dirname, 'views'))
@@ -27,6 +28,17 @@ async function main() {
     await mongoose.connect(MONGO_URL)
 }
 
+//validate middleware
+const validateListing = (req, res, next) => {  
+    const {error} = listingSchema.validate(req.body);
+    if(error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(400, msg)
+    } else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
     res.send('hii this is a root');
     });
@@ -36,33 +48,35 @@ app.get('/listings',wrapAsync( async(req, res) => {
     res.render('./listings/index.ejs', { listing});
 }))
 
-
+//create route
 app.get('/listings/new', (req, res) => {
     res.render('./listings/new.ejs')
 })
 
-app.post('/listings',wrapAsync( async(req, res) => {
-    if(!req.body) throw new ExpressError(400, 'Send Valid Data');
+app.post('/listings',validateListing,wrapAsync( async(req, res) => {
     const listing = new Listing(req.body);
     await listing.save();
     res.redirect('/listings')
 }))
+//edit route
 app.get('/listings/:id/edit',wrapAsync( async(req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render('./listings/edit.ejs', { listing});
 }))
-app.put('/listings/:id',wrapAsync( async(req, res) => {
-    if(!req.body) throw new ExpressError(400, 'Send Valid Data');
+app.put('/listings/:id',validateListing,wrapAsync( async(req, res) => {
     let { id } = req.params;
     const listing = await Listing.findByIdAndUpdate(id, {...req.body}, { new: true });   
     res.redirect(`/listings/${id}`)   
 }))
+//delete route
 app.delete('/listings/:id',wrapAsync( async(req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect('/listings')
 }))
+
+//show route
 app.get('/listings/:id',wrapAsync( async(req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -76,8 +90,7 @@ app.all('/*path', (req, res,next) => {
 
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong' } = err;
-    console.log(err.message);
-    res.status(statusCode).send(message);
+    res.status(statusCode).render('error.ejs', {message });
 })
 
 
