@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-route"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+        <div class="navbar-nav ms-auto ">
+          <form class="d-flex ml-auto search" role="search">
+            <input class="form-control me-2 search-in " type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn search-btn" type="submit">Search</button>
+          </form>
+        </div>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+          <div class="dropdown me-3">
+            <button class="btn pr-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-bars"></i>
+              <i class="fa-solid fa-user"></i>
+            </button>
+            <ul class="dropdown-menu  me-3">
+              <% if(!currUser) {%>
+              <a class="nav-link pr-menu" href="/signup"><b>SignUp</b></a>
+              <a class="nav-link pr-menu" href="/login"><b>Login</b></a>
+              <% } else { %>
+              <a class="nav-link pr-menu" href="/logout"><b>Logout</b></a>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </nav>

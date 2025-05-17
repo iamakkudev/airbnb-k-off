@@ -1,0 +1,161 @@
+<% layout('layout/boilerplate.ejs') %>
+    
+    <!-- <h3>All listing</h3> -->
+    <!-- <form method="get" action="/listings/new"><button>Create New</button></form> -->
+        <div class="head">
+            <div class="filter-wrapper">
+               <i class="fa-solid fa-angle-left scroll-btn left" onclick="scrollFLeft()"></i>
+                <div id="filters">
+                        <a href="/listings?category=Lakefront" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-water fa-2x text-danger"></i>
+                            <p>Lakefront</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Beachfront" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-umbrella-beach fa-2x text-danger"></i>
+                            <p>Beachfront</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Camping" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-campground fa-2x text-danger"></i>
+                            <p>Camping</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=National Parks" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-tree fa-2x text-danger"></i>
+                            <p>National Parks</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Farms" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-tractor fa-2x text-danger"></i>
+                            <p>Farms</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Countryside" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-mountain fa-2x text-danger"></i>
+                            <p>Countryside</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Arctic" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-snowflake fa-2x text-danger"></i>
+                            <p>Arctic</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Desert" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-sun fa-2x text-danger"></i>
+                            <p>Desert</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Luxury" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-hotel fa-2x text-danger"></i>
+                            <p>Luxury</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Historical" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-vihara fa-2x text-danger"></i>
+                            <p>Historical</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Cabins" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-fire fa-2x text-danger"></i>
+                            <p>Cabins</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Boats" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-sailboat fa-2x text-danger"></i>
+                            <p>Boats</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=City" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-city fa-2x text-danger"></i>
+                            <p>City</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Eco" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-tree-city fa-2x text-danger"></i>
+                            <p>Eco</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Pet Friendly" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-dog fa-2x text-danger"></i>
+                            <p>Pet Friendly</p>
+                        </div>
+                        </a>
+
+                        <a href="/listings?category=Remote Work" class="filter-link">
+                        <div class="filter">
+                            <i class="fa-solid fa-wifi fa-2x text-danger"></i>
+                            <p>Remote Work</p>
+                        </div>
+                        </a>
+
+                    </div>
+                  <i class="fa-solid fa-angle-right scroll-btn right" onclick="scrollFRight()"></i>
+            </div>
+        
+
+           <div class="dropdown Sort">
+            <a class="btn btn-outline-dark sort-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                Sort By
+                <i class="fa-solid fa-sort" style="margin-left: 2px;"></i>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/listings?sort=price_asc">Low To High Price</a></li>
+                <li><a class="dropdown-item" href="/listings?sort=price_desc">High To Low Prce</a></li>
+            </ul>
+            </div>
+            <div class="form-check-reverse form-switch " id="tax">
+                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            </div>
+
+        </div>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+            <% for (let list of listing) {%>
+                <a href="/listings/<%=list._id%>" class="listing-link">
+                <div class="card col listing-card">
+                    <img src="<%= list.image.url %>" class="card-img-top" alt="listing image" style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                      <p class="card-text"><b><%= list.title %></b> <br>
+                        &#8377 <%= list.price.toLocaleString("en-IN") %>/night
+                         <i class="taxInfo">&nbsp; &nbsp; +18% GST</i>
+                    </p>
+                    </div>
+                  </div> 
+                  </a>
+                
+            <% } %>
+        </div>
+<script src="/js/index.js"></script>

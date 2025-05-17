@@ -1,0 +1,71 @@
+<% layout('layout/boilerplate.ejs') %>
+<body>
+    <div class="row mt-3 mb-3">
+        <div class="col-8 offset-2">
+            <h3>Create new listing</h3>
+            <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="title" id="title" class=" form-control shadow-focus" placeholder="Enter the title" required>
+                    <div class="invalid-feedback">Title Should be Valid</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" id="description" class=" form-control shadow-focus" placeholder="Enter the description" required></textarea>
+                    <div class="invalid-feedback">Description Should be Valid</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Image</label>
+                    <input type="file" name="image" id="image" class=" form-control shadow-focus" required>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" name="price" id="price" class=" form-control shadow-focus" placeholder="eg.- 1200" required>
+                        <div class="invalid-feedback">Price Should be Valid</div>
+                    </div>
+    
+                    <div class="mb-3 col-4">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" name="country" id="country" class=" form-control shadow-focus" placeholder="India" required>
+                        <div class="invalid-feedback">Country Should be Valid</div>
+                    </div>
+                    <div class="mb-3 col-4">
+                        <label for="category">Choose a category:</label>
+                        <select id="category" name="category" class="form-select">
+                        <option value="">-- Select the category --</option>
+                        <option value="Lakefront">Lakefront</option>
+                        <option value="Beachfront">Beachfront</option>
+                        <option value="Camping">Camping</option>
+                        <option value="National Parks">National Parks</option>
+                        <option value="Farms">Farms</option>
+                        <option value="Countryside">Countryside</option>
+                        <option value="Arctic">Arctic</option>
+                        <option value="Desert">Desert</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Historical">Historical</option>
+                        <option value="Cabins">Cabins</option>
+                        <option value="Boats">Boats</option>
+                        <option value="City">City</option>
+                        <option value="Eco">Eco</option>
+                        <option value="Pet Friendly">Pet Friendly</option>
+                        <option value="Remote Work">Remote Work</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="location" id="location" class=" form-control shadow-focus" placeholder="Enter the location" required>
+                        <div class="invalid-feedback">Location Should be Valid</div>
+                </div>
+                
+                <button type="submit" class="btn mb-3 add-button">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</body>
