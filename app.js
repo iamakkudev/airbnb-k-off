@@ -1,7 +1,6 @@
 if(process.env.NODE_ENV != "production"){
     require('dotenv').config()
 }
-
 const express = require('express');
 const mongoose = require('mongoose');
 const Path = require('path');
@@ -92,9 +91,9 @@ app.use('/listings/:id/reviews', reviewRouter);
 app.use('/', userRouter);
  
 
-// app.get('/', (req, res) => {
-//     res.send('hii this is a root');
-//     });
+app.get('/', (req, res) => {
+    res.redirect("/listings");
+    });
 
 
 app.all('/*path', (req, res,next) => {

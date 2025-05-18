@@ -121,25 +121,25 @@
                     </div>
                   <i class="fa-solid fa-angle-right scroll-btn right" onclick="scrollFRight()"></i>
             </div>
-        
+            
+            <div class="fltr-btn">
+                <div class="dropdown Sort">
+                <a class="btn btn-outline-dark sort-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort By
+                    <i class="fa-solid fa-sort" style="margin-left: 2px;"></i>
+                </a>
 
-           <div class="dropdown Sort">
-            <a class="btn btn-outline-dark sort-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                
-                Sort By
-                <i class="fa-solid fa-sort" style="margin-left: 2px;"></i>
-            </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/listings?sort=price_asc">Low To High Price</a></li>
+                    <li><a class="dropdown-item" href="/listings?sort=price_desc">High To Low Prce</a></li>
+                </ul>
+                </div>
+                <div class="form-check-reverse form-switch " id="tax">
+                    <label class="form-check-label tax-abt" for="switchCheckDefault">After taxes</label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                </div>
 
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/listings?sort=price_asc">Low To High Price</a></li>
-                <li><a class="dropdown-item" href="/listings?sort=price_desc">High To Low Prce</a></li>
-            </ul>
             </div>
-            <div class="form-check-reverse form-switch " id="tax">
-                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            </div>
-
         </div>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
             <% for (let list of listing) {%>
