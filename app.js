@@ -21,6 +21,7 @@ const User = require('./models/user.js');
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
+const MongoStore = require('connect-mongo');
 
 
 app.set('view engine', 'ejs');
@@ -32,9 +33,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+const dbUrl = process.env.ATLASDB_URL
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: process.env.SECRET
+    },
+    touchAfter: 24 * 3600,
+})
 
 const sessionOptions = {
+    store,
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
@@ -44,6 +54,7 @@ const sessionOptions = {
         httpOnly: true
 }
 }
+
 app.use(session(sessionOptions))
 app.use(flash());
 
@@ -66,13 +77,14 @@ app.use((req, res, next) => {
 
 
 
-const MONGO_URL = 'mongodb://127.0.0.1:27017/wonderlust';
+// const MONGO_URL = 'mongodb://127.0.0.1:27017/wonderlust';
+
 main()
 .then(() => console.log('MongoDB connected')) 
 .catch(err => console.log(err));
 async function main() {
  
-    await mongoose.connect(MONGO_URL)
+    await mongoose.connect(dbUrl)
 }
 
 app.use('/listings', listingRouter);

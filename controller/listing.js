@@ -48,9 +48,7 @@ module.exports.createListing = async (req, res) => {
     listing.owner = req.user._id;
     listing.image = { url, filename };
     listing.geometry = geoJSONPoint;
-    console.log(listing)
     await listing.save();
-    console.log(listing)
     req.flash("success", "Successfully created a new listing");
     res.redirect("/listings");
   } catch (err) {
